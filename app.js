@@ -6,7 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('../frontend'));
+app.use(express.static('./frontend'));
 
 
 app.post('/login', async (req, res) => {
@@ -103,10 +103,13 @@ function generarCodigo(nombre, apellido) {
     return letras + numeros; 
 }
 
+app.get('/', (req, res) => {
+    res.send('🚀 Backend funcionando correctamente');
+});
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor Iniciado por el Grupo1 en http://localhost:${PORT}`);
+    console.log(`Servidor Iniciado por el Grupo1 en el puerto ${PORT}`);
 });
 
 

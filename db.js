@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -8,14 +9,5 @@ const pool = new Pool({
     password: process.env.PGPASSWORD,
     ssl: { rejectUnauthorized: false }
 });
-
-pool.connect()
-    .then(client => {
-        console.log('Conectado a la base de datos de Render');
-        client.release();
-    })
-    .catch(err => {
-        console.error('Error al conectar', err);
-    });
 
 module.exports = pool;
