@@ -10,8 +10,11 @@ app.use(cors({ origin: '*' })); // Permite cualquier dominio
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../frontend')));
+// app.use(express.static(path.join(__dirname, '../frontend')));
 
+app.get('/', (req, res) => {
+    res.send('🚀 Backend funcionando correctamente');
+});
 
 
 app.post('/login', async (req, res) => {
@@ -109,9 +112,7 @@ function generarCodigo(nombre, apellido) {
 }
 
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor Iniciado por el Grupo1 en http://localhost:${PORT}`);
+    console.log(`Servidor Iniciado por el Grupo1 en el puerto ${PORT}`);
 });
-
-
