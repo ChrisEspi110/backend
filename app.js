@@ -10,11 +10,8 @@ app.use(cors({ origin: '*' })); // Permite cualquier dominio
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const path = require('path');
-// app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '../frontend')));
 
-app.get('/', (req, res) => {
-    res.send('🚀 Backend funcionando correctamente');
-});
 
 
 app.post('/login', async (req, res) => {
@@ -113,6 +110,19 @@ function generarCodigo(nombre, apellido) {
 
 
 const PORT = process.env.PORT || 3000;
+
+// Endpoint temporal para probar la DB
+app.get('/test-db', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT NOW()'); // consulta simple para probar conexión
+        res.json({ success: true, server_time: result.rows[0] });
+    } catch (err) {
+        console.error('❌ Error al conectar a la DB:', err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Servidor Iniciado por el Grupo1 en el puerto ${PORT}`);
 });
