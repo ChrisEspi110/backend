@@ -1,19 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('./db'); 
-const cors = require('cors'); // <-- agregar
+const cors = require('cors');
+
 const app = express();
 
-
-// Permite tu frontend de GitHub Pages
-app.use(cors({
-    origin: ['https://chrisespi110.github.io'], // reemplaza con tu dominio real
-    methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-    allowedHeaders: ['Content-Type','Authorization']
-}));
-
-app.use(cors()); // menos seguro, solo para desarrollo
-
+app.use(cors({ origin: '*' })); 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
